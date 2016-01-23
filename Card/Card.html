@@ -52,11 +52,13 @@
 
 <template name="cardsList">
 	<h4>Available slots: {{slotsAvailable}}</h4>
-	{{#each cards}}
-		<div class="input-group">
-			<label>
-		     	<input type="checkbox" checked="{{inDeckList _id}}"> {{name}}
-		   </label>
-		</div>
-	{{/each}}
+	<div class="cards-list">
+		{{#each cards}}
+			<div class="input-group">
+				<label>
+			     	<input type="checkbox" checked="{{inDeckList _id}}"> {{name}}
+			   </label>
+			</div>
+		{{/each}}
+	</div>	
 </template>

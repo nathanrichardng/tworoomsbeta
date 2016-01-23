@@ -90,6 +90,11 @@
 	-webkit-box-shadow: 0px 0px 5px #333;
 }
 
+.cards-list {
+	height: 300px;
+	overflow-y: scroll;
+}
+
 .spacer {
 	margin-top: 50px;
 }
@@ -123,7 +128,7 @@
 	background-color: #4BC977;
 }
 
-.leave-game-button, .start-game-button {
+.leave-game-button, .start-game-button, .reset-game-button {
 	height: 50px;
 	border-radius: 0px;
 }
@@ -202,5 +207,11 @@
 @media(min-width: 1200px) {
 	.new-game-button, .join-game-button {
 		margin-top: 35px;
+	}
+}
+
+@media(max-height: 500px) {
+	.footer-text{
+		display: none;
 	}
 }

@@ -3,6 +3,9 @@ if (Meteor.isClient) {
   Template.game.helpers({
     inLobby: function() {
       return this.stage === "Lobby";
+    },
+    isLeader: function() {
+      return Session.equals("playerId", this.leader);
     }
   });
 
@@ -16,6 +19,9 @@ if (Meteor.isClient) {
       }
 
       return Players.findOne({ _id: playerId, game: gameId });
+    },
+    isLeader: function() {
+      return Session.equals("playerId", this.leader);
     }
   });
 
@@ -63,6 +69,19 @@ if (Meteor.isClient) {
         }
         else {
           console.log("successfully started game", success);
+        }
+      })
+    },
+    "click .reset-game-button": function(event) {
+      event.preventDefault();
+      console.log("Restarting Game");
+      var gameId = this._id;
+      Meteor.call("resetGame", gameId, function(error, success) {
+        if(error) {
+          console.log("error restarting game", error);
+        }
+        else {
+          console.log("successfully restarted game", success);
         }
       })
     },

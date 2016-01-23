@@ -53,6 +53,10 @@ Schema.Game = new SimpleSchema({
         optional: false,
         allowedValues: ['Lobby', 'Round 1', 'Round 2', 'Round 3', 'Game Over']
     },
+    leader: {
+        type: String,
+        optional: true
+    },
     createdOn: {
         type: Date,
         autoValue: function() {

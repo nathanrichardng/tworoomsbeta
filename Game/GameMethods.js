@@ -1,11 +1,28 @@
 if (Meteor.isServer) {
+  //need to refactor this to add a new leader when the leader leaves
+  // and reset the clock whenever the game is reset
   Meteor.methods({
     'joinGame': function(gameId, playerName) {
       var playerId = Players.insert({ game: gameId, name: playerName});
-      Games.update({ _id: gameId, stage: "Lobby" }, {
-        $addToSet: { players: playerId }
-      });
+      var game = Games.findOne({ _id: gameId });
+      if (game.leader) {
+        Games.update({ _id: gameId, stage: "Lobby" }, {
+          $addToSet: { players: playerId }
+        });
+      }
+      else {
+        Games.update({ _id: gameId, stage: "Lobby" }, {
+          $addToSet: { players: playerId },
+          $set: { leader: playerId }
+        });
+      }
+      
       return playerId;
+    },
+    'resetGame': function(gameId) {
+      Games.update({ _id: gameId }, {
+        $set: { stage: "Lobby" }
+      });
     },
     'leaveGame': function(playerId) {
       var player = Players.findOne({ _id: playerId });
@@ -84,8 +101,8 @@ if (Meteor.isServer) {
           fillerCount -= 1;
         };
         for(i = 0; i < (fillerCount/2); i++ ) {
-          var agent = Cards.findOne({ name: "Blue Agent" })._id;
-          var terrorist = Cards.findOne({ name: "Red Agent" })._id;
+          var agent = Cards.findOne({ name: "Blue Member" })._id;
+          var terrorist = Cards.findOne({ name: "Red Member" })._id;
           this.deck.push(agent);
           this.deck.push(terrorist);
         };
@@ -137,62 +154,6 @@ if (Meteor.isServer) {
 
         return array;
       }
-
-      /*var deck = [];
-
-      //add president and bomber
-      var president = Cards.findOne({ name: "President" })._id;
-      var bomber = Cards.findOne({ name: "Bomber" })._id;
-      deck.push(president);
-      deck.push(bomber);
-      remainingCards -= 2;*/
-
-      //add the player selected cards
-      /*if (playerSelectedCards.length > 0) {
-        for(var k = 0; k < remainingCards; k++) {
-          deck.push(playerSelectedCards[k]);
-        }
-      }
-
-      //update the number of remaining cards
-      remainingCards -= playerSelectedCards.length;
-      //if there will be an odd number of players left
-      //add a Gambler to fill the gap
-      if (remainingCards % 2 > 0) {
-        var gambler = Cards.findOne({ name: "Gambler" })._id;
-        deck.push(gambler);
-        remainingCards -= 1;
-      }
-
-
-      //divide the remaining cards into Agent or Terrorist
-      for (var i = 0; i < remainingCards/2; i++) {
-        var agent = Cards.findOne({ name: "Agent" })._id;
-        var terrorist = Cards.findOne({ name: "Terrorist" })._id;
-        deck.push(agent);
-        deck.push(terrorist);
-      }
-
-      //shuffle the deck
-      shuffle(deck);
-
-      //deal out the cards
-      for(var j = 0; j < players.length; j++) {
-        var playerId = players[j]._id;
-        var cardId = deck[j];
-        Players.update({ _id: playerId }, {
-          $set: { card: cardId }
-        });
-      }
-
-      //start the game
-      Games.update({ _id: gameId }, {
-        $set: { stage: "Round 1" }
-      });
-
-      var updatedPlayers = Players.find({ game: gameId }).fetch();
-
-      return "Cards dealt";*/
     }
   });
 }

@@ -15,6 +15,7 @@ if (Meteor.isServer) {
     return Games.find({});
   });
 
+
   if (Cards.find({}).count() === 0) {
     var bomber = {
       name: "Bomber",
@@ -31,15 +32,15 @@ if (Meteor.isServer) {
     }
 
     var agent = {
-      name: "Blue Agent",
-      description: "You are an agent of the Blue Team. Protect the president at all costs!",
+      name: "Blue Member",
+      description: "You are a member of the Blue Team. Protect the president at all costs!",
       team: "Blue",
       core: true
     }
 
     var terrorist = {
-      name: "Red Agent",
-      description: "You are an agent of the Red Team. You should feel ashamed of your poor life choices.",
+      name: "Red Member",
+      description: "You are a member of the Red Team. You should feel ashamed of your poor life choices.",
       team: "Red",
       core: true
     }
@@ -52,14 +53,14 @@ if (Meteor.isServer) {
     }
 
     var terroristSpy = {
-      name: "Red Spy",
+      name: "Spy (Red Team)",
       description: "Shhh...you're actually on the Red Team.",
       team: "Blue",
       core: false
     }
 
     var ctSpy = {
-      name: "Blue Spy",
+      name: "Spy (Blue Team)",
       description: "You are a highly trained spy in a deep cover operation. Gain the enemy's trust, gather intel, and most importantly: save the President.",
       team: "Red",
       core: false
@@ -107,6 +108,62 @@ if (Meteor.isServer) {
       core: false
     }
 
+    var doctor = {
+      name: "Doctor",
+      description: "Bowties are cool, fezzes are cool, and you need to share your card with the president or else the blue team will lose!",
+      team: "Blue",
+      core: false
+    }
+
+    var engineer = {
+      name: "Engineer",
+      description: "You're smart. You pretty much designed the bomb that will blow the president up. Only..you forgot to tell the Bomber how to turn the darn thing on! Share cards with the Bomber before the game ends, or the Red team loses!",
+      team: "Red",
+      core: false
+    }
+
+    var blueCon = {
+      name: "Conman (Blue Team)",
+      description: "You were always pretty good at conversations; and once you share a bit about yourself, others just can't help but open up as well. When a player agrees to color share with you, private reveal instead. Then that player must privately reveal their card as well.",
+      team: "Blue",
+      core: false
+    }
+
+    var redCon = {
+      name: "Conman (Red Team)",
+      description: "Tricking people has always come naturally to you; and these blue fools just make it so damn easy. Any time you color share with a player, reveal your whole card instead. Then that player must privately reveal their whole card as well.",
+      team: "Red",
+      core: false
+    }
+
+    var blueNegotiator = {
+      name: "Negotiator (Blue Team)",
+      description: "You're not here to play games; you're here to broker a deal, and establishing trust is key. You may only share your full card with other players (and vice versa).",
+      team: "Blue",
+      core: false
+    }
+
+    var redNegotiator = {
+      name: "Negotiator (Red Team)",
+      description: "It's not quite as fun as lying to get information, but it serves your cause nonetheless. You may only share your full card with other players (and vice versa).",
+      team: "Red",
+      core: false
+    }
+
+    var blueSecurity = {
+      name: "Security (Blue Team)",
+      description: "Once per game you may reveal your card and 'Tackle' a player in the room (no, don't actually do it). That player cannot leave as a hostage for this round, and you must keep your card revealed for the rest of the game.",
+      team: "Blue",
+      core: false
+    }
+
+    var redSecurity = {
+      name: "Security (Red Team)",
+      description: "Once per game you may reveal your card and 'Tackle' a player in the room (no, don't actually do it). That player cannot leave as a hostage for this round, and you must keep your card revealed for the rest of the game.",
+      team: "Red",
+      core: false
+    }
+
     Cards.insert(bomber);
     Cards.insert(president);
     Cards.insert(agent);
@@ -120,5 +177,13 @@ if (Meteor.isServer) {
     Cards.insert(ctShyGuy);
     Cards.insert(firstLady);
     Cards.insert(mistress);
+    Cards.insert(doctor);
+    Cards.insert(engineer);
+    Cards.insert(blueCon);
+    Cards.insert(redCon);
+    Cards.insert(blueNegotiator);
+    Cards.insert(redNegotiator);
+    Cards.insert(blueSecurity);
+    Cards.insert(redSecurity);
   }
 }
