@@ -1,0 +1,83 @@
+<template name="game">
+	{{#if inLobby}}
+		{{> lobby}}
+	{{else}}
+		<div class="row">
+			{{> timer}}
+			{{> card}}
+		</div>
+		<div class="row">
+			{{> leaveGameButton}}
+		</div>
+	{{/if}}
+</template>
+
+<template name="startGameButton">
+	<button class="button start-game-button col-md-4 col-xs-12">
+		Start Game
+	</button>
+</template>
+
+<template name="leaveGameButton">
+	<button class="button leave-game-button col-md-4 col-xs-12">
+		Leave Game
+	</button>
+</template>
+
+<template name="lobby">
+	{{#if playingGame}}
+		<div class="row">
+			{{> showGameAddressButton}}
+			{{> showCardsButton}}
+		</div>
+		<div class="row">
+			{{> players}}
+		</div>
+		<div class="row spacer lobby">
+			{{> startGameButton}}
+			{{> leaveGameButton}}
+		</div>
+	{{else}}
+		<div class="row">
+			<h4>Access Code:</h4>
+			{{> accessCode}}
+		</div>
+		{{> addPlayerForm}}
+	{{/if}}
+</template>
+
+<template name="gameAddress">
+	<div class="scroll-x well">
+		<input class="form-control" id="game-address" name="gameAddress" type="text" readonly="readonly" value="http://tworoomsapp.com/game/{{_id}}">
+	</div>
+</template>
+
+<template name="accessCode">
+	<div class="scroll-x well">
+		<input class="form-control" id="game-access-code" name="gameAccessCode" type="text" readonly="readonly" value="{{accessCode}}">
+	</div>
+</template>
+
+<template name="showGameAddressButton">
+	<div class="col-xs-12">
+		<span data-toggle="modal" data-target="#game-address-modal" class="pull-right show-game-address-button">
+		  <i class="fa fa-mobile"></i> Show access code
+		</span>
+	</div>
+	<div class="modal fade" tabindex="-1" role="dialog" id="game-address-modal">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4>Access Code:</h4>
+	      </div>
+	      <div class="modal-body">
+	        {{> accessCode}}
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->		
+</template>
