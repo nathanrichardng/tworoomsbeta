@@ -1,13 +1,15 @@
 <template name="timer">
 	<div class="col-xs-12 col-md-4 timer">
 		<span class="col-xs-6 time">{{timeRemaining}}</span>
-		{{#if timerRunning}}
-			<span class="glyphicon glyphicon-pause pause-timer col-xs-2"></span>
-		{{else}}
-			<span class="glyphicon glyphicon-play start-timer col-xs-2"></span>
+		{{#if isLeader}}
+			{{#if timerRunning}}
+				<span class="glyphicon glyphicon-pause pause-timer col-xs-2"></span>
+			{{else}}
+				<span class="glyphicon glyphicon-play start-timer col-xs-2"></span>
+			{{/if}}
+			<span class="glyphicon glyphicon-repeat reset-timer col-xs-2"></span>
+			{{> setTimerButton}}
 		{{/if}}
-		<span class="glyphicon glyphicon-repeat reset-timer col-xs-2"></span>
-		{{> setTimerButton}}
 	</div>
 	<div class="col-md-8 spacer"></div>
 </template>

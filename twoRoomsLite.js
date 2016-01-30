@@ -15,7 +15,7 @@ if (Meteor.isServer) {
     return Games.find({});
   });
 
-
+  Cards.remove({});
   if (Cards.find({}).count() === 0) {
     var bomber = {
       name: "Bomber",
@@ -32,14 +32,14 @@ if (Meteor.isServer) {
     }
 
     var agent = {
-      name: "Blue Member",
+      name: "Blue Team",
       description: "You are a member of the Blue Team. Protect the president at all costs!",
       team: "Blue",
       core: true
     }
 
     var terrorist = {
-      name: "Red Member",
+      name: "Red Team",
       description: "You are a member of the Red Team. You should feel ashamed of your poor life choices.",
       team: "Red",
       core: true

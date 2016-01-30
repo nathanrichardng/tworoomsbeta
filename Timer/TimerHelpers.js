@@ -28,6 +28,9 @@ if (Meteor.isClient) {
       var player = Players.findOne({ _id: playerId });
       var game = Games.findOne({ _id: player.game });
       return (!game.timerPaused && game.timerEndTime);
+    },
+    isLeader: function() {
+      return Session.equals("playerId", this.leader);
     }
   });
 

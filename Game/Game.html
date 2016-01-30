@@ -7,11 +7,10 @@
 			{{> card}}
 		</div>
 		<div class="row">
-			{{> leaveGameButton}}
-		</div>
-		<div class="row">
 			{{#if isLeader}}
 				{{> resetGameButton}}
+			{{else}}
+				{{> leaveGameButton}}
 			{{/if}}
 		</div>
 	{{/if}}
@@ -31,7 +30,7 @@
 
 <template name="resetGameButton">
 	<button class="button reset-game-button col-md-4 col-xs-12">
-		New Game
+		Return To Lobby
 	</button>
 </template>
 
